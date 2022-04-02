@@ -1,0 +1,43 @@
+{
+  "name": "start-with-testcontainers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "bin": {
+    "swtc": "lib/bin/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf lib docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brad-Turner/start-with-containers.git"
+  },
+  "keywords": [],
+  "author": "Bradley Turner <dev.bradturner@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Brad-Turner/start-with-containers/issues"
+  },
+  "homepage": "https://github.com/Brad-Turner/start-with-containers#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "@types/nodemon": "^1.19.1",
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.13.0",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
+    "testcontainers": "^8.4.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "ts-node": "^10.7.0"
+  }
+}
