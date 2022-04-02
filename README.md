@@ -1,6 +1,6 @@
 # SWTC
 
-Built on top of the [testcontainers]() library, SWTC (`start with testcontainers`) allows you to run a NodeJS process without the need for worring about container setup or teardown.
+Built on top of the [testcontainers](https://github.com/testcontainers/testcontainers-node) library, SWTC (`start with testcontainers`) allows you to run a NodeJS process without the need for worring about container setup or teardown.
 
 ## Getting Started
 
