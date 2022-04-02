@@ -1,4 +1,6 @@
-#!/usr/bin/env -S npx ts-node
-import { startWithTestContainers } from '..';
+#!/usr/bin/env node
+
+require('ts-node').register();
+const { startWithTestContainers } = require('..');
 
 startWithTestContainers();

@@ -21,7 +21,7 @@ export async function loadSwtcFile(path: PathLike): Promise<SwtcFile | undefined
     // validate here
     return file;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return undefined;
   }
 }
