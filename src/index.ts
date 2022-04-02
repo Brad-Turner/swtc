@@ -1,5 +1,7 @@
-import { loadSwtcFile, mapDefinitionToContainer, onShutdown } from './util';
+export { StartedTestContainer } from 'testcontainers';
 export { ContainerDefinition, OnStartHook } from './types';
+
+import { loadSwtcFile, mapDefinitionToContainer, onShutdown } from './util';
 
 export async function startWithTestContainers(): Promise<void> {
   const swtc = await loadSwtcFile(`${process.cwd()}/swtc.ts`);
