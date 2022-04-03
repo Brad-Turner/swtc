@@ -67,7 +67,7 @@ jobs:
         run: echo "PACKAGE_VERSION=$(npm show . version)" >> $GITHUB_ENV
 
       - name: Echo versions
-        run: echo "Latest:\s${{ env.LATEST_PUBLISHED_VERSION }}, current:\s${{ env.PACKAGE_VERSION }}"
+        run: echo "Latest:${{ env.LATEST_PUBLISHED_VERSION }}, package.json version:${{ env.PACKAGE_VERSION }}"
 
       - name: Publish
         if: env.LATEST_PUBLISHED_VERSION != env.PACKAGE_VERSION
