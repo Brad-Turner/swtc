@@ -64,7 +64,7 @@ jobs:
         run: echo "LATEST_PUBLISHED_VERSION=$(npm dist-tag ls swtc | sed -n -e 's/^.*latest:\s//p')" >> $GITHUB_ENV
 
       - name: Set current version
-        run: echo "PACKAGE_VERSION=$(npm show . version)" >> $GITHUB_ENV
+        run: echo "PACKAGE_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
 
       - name: Echo versions
         run: echo "Latest:${{ env.LATEST_PUBLISHED_VERSION }}, package.json version:${{ env.PACKAGE_VERSION }}"
