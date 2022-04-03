@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  ci:
+  CI:
     runs-on: ubuntu-latest
 
     strategy:
@@ -40,8 +40,8 @@ jobs:
           name: node-${{ matrix.node-version }}-lib
           path: lib/
 
-  publish:
-    needs: ci
+  Publish:
+    needs: CI
     runs-on: ubuntu-latest
 
     if: success() && github.ref == 'refs/heads/master'
@@ -69,8 +69,8 @@ jobs:
       - name: Echo versions
         run: echo "Latest:${{ env.LATEST_PUBLISHED_VERSION }}, package.json version:${{ env.PACKAGE_VERSION }}"
 
-      - name: Publish
+      - name: Publish 🚀
         if: env.LATEST_PUBLISHED_VERSION != env.PACKAGE_VERSION
-        run: npm publish --ignore-scripts --dry-run
+        run: npm publish --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
