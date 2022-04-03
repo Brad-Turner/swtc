@@ -30,3 +30,45 @@ jobs:
 
       - name: Build project
         run: npm run build --if-present
+
+      - name: Test
+        run: npm run test --if-present
+
+      - name: Upload distributable
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-files
+          path: lib/
+
+  publish-test:
+    needs: ci
+    runs-on: ubuntu-latest
+
+    if: success() && github.ref == 'refs/heads/master'
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Download distributable
+        uses: actions/download-artifact@v3
+        with:
+          name: built-files
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: Set latest published version
+        run: echo "LATEST_PUBLISHED_VERSION=$(npm dist-tag ls react | sed -n -e 's/^.*latest: //p')" >> $GITHUB_ENV
+
+      - name: Set current version
+        run: echo "PACKAGE_VERSION=$(npm show . version)" >> $GITHUB_ENV
+
+      - name: Echo versions
+        run: echo "Latest: $LATEST_PUBLISHED_VERSION, current: $PACKAGE_VERSION"
+
+      - name: Publish
+        if: ${{ $LATEST_PUBLISHED_VERSION != $PACKAGE_VERSION }}
+        run: npm publish --dry-run --ignore-scripts
