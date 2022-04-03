@@ -54,11 +54,13 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: node-16.x-lib
+          path: lib/
 
       - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Set latest published version
         run: echo "LATEST_PUBLISHED_VERSION=$(npm dist-tag ls swtc | sed -n -e 's/^.*latest:\s//p')" >> $GITHUB_ENV
@@ -71,6 +73,6 @@ jobs:
 
       - name: Publish 🚀
         if: env.LATEST_PUBLISHED_VERSION != env.PACKAGE_VERSION
-        run: npm publish --ignore-scripts
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
