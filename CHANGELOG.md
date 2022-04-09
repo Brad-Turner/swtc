@@ -7,11 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add listeners for window shutdown signals `SIGHUP` and `SIGBREAK`.
+- Add settings to allow configurable path to swtc file.
+
 ## 1.0.2
 
 ### Changed
 
-- Fix missing package testcontainers
+- Fix missing package testcontainers.
 
 ## 1.0.1
 

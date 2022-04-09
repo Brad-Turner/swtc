@@ -1,22 +1,25 @@
 import { EventEmitter } from 'events';
 import { constants, PathLike, promises as fs } from 'fs';
-import { GenericContainer } from 'testcontainers';
-import { ContainerDefinition, SwtcFile } from './types';
+import { isAbsolute, resolve } from 'path';
 
 export function onShutdown(handle: (signal?: string) => Promise<void> | void) {
-  const events = ['beforeExit', 'SIGINT', 'SIGTERM'];
+  const events = ['beforeExit', 'SIGINT', 'SIGTERM', 'SIGHUP', 'SIGBREAK'];
   const shutdownEmitter = new EventEmitter().once('shutdown', handle);
 
-  events.forEach((signal) => {
-    process.once(signal, (code) => shutdownEmitter.emit('shutdown', code));
-  });
+  events.forEach((signal) => process.on(signal, (code) => shutdownEmitter.emit('shutdown', code)));
 }
 
-export async function loadSwtcFile(path: PathLike): Promise<SwtcFile | undefined> {
+export function resolveStringToPath(path: string | undefined, defaultPath: string): PathLike {
+  if (!path) path = defaultPath;
+
+  return isAbsolute(path) ? path : resolve(process.cwd(), path);
+}
+
+export async function loadFile<T>(path: PathLike): Promise<T | undefined> {
   try {
     await fs.access(path, constants.F_OK);
 
-    const file: SwtcFile = await import(path.toString());
+    const file: T = await import(path.toString());
 
     // validate here
     return file;
@@ -24,23 +27,4 @@ export async function loadSwtcFile(path: PathLike): Promise<SwtcFile | undefined
     console.error(err);
     return undefined;
   }
-}
-
-export function mapDefinitionToContainer(def: ContainerDefinition): GenericContainer {
-  const container = new GenericContainer(def.image).withExposedPorts(...def.ports);
-
-  if (def.name) container.withName(def.name);
-  if (def.env) {
-    Object.entries(def.env).forEach(([key, value]) => container.withEnv(key, value));
-  }
-
-  const ref = container.start;
-  container.start = async function () {
-    const instance = await ref.apply(this);
-
-    if (def.onStart) def.onStart(instance);
-    return instance;
-  };
-
-  return container;
 }

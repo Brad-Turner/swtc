@@ -14,3 +14,7 @@ export interface SwtcFile {
   containers: ContainerDefinition[];
   run: () => Promise<void>;
 }
+
+export interface SwtcSettings {
+  project?: string;
+}
