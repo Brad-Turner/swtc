@@ -21,7 +21,7 @@ function mapDefinitionToContainer(def: ContainerDefinition): GenericContainer {
   return container;
 }
 
-export async function startWithTestContainers(settings: SwtcSettings): Promise<void> {
+export async function startWithTestContainers(settings: SwtcSettings = {}): Promise<void> {
   const swtcPath = resolveStringToPath(settings.project, 'swtc.ts');
   const swtc = await loadFile<SwtcFile>(swtcPath);
 
