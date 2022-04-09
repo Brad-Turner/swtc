@@ -29,7 +29,7 @@ export const containers: ContainerDefinition[] = [
   }
 ];
 
-export const run(): Promise<void> {
+export const run = async (): Promise<void> => {
   // Code to be run while containers are running
-}
+};
 ```
