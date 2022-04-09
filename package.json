@@ -12,13 +12,19 @@
   ],
   "scripts": {
     "build": "tsc",
-    "clean": "rimraf lib docs"
+    "clean": "rimraf lib docs",
+    "docs": "typedoc"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Brad-Turner/start-with-containers.git"
   },
-  "keywords": [],
+  "keywords": [
+    "swtc",
+    "docker",
+    "containers",
+    "testcontainers"
+  ],
   "author": "Bradley Turner <dev.bradturner@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -34,6 +40,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
+    "typedoc": "^0.22.14",
     "typescript": "^4.5.5"
   },
   "dependencies": {

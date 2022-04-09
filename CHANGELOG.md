@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add listeners for window shutdown signals `SIGHUP` and `SIGBREAK`.
 - Add settings to allow configurable path to swtc file.
+- Add examples directory for common use-cases.
+- Add github pages for API docs
+
+### Changed
+
+- Modified documentation
 
 ## 1.0.2
 

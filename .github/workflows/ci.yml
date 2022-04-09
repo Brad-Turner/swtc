@@ -71,7 +71,7 @@ jobs:
       - name: Echo versions
         run: echo "Latest:${{ env.LATEST_PUBLISHED_VERSION }}, package.json version:${{ env.PACKAGE_VERSION }}"
 
-      - name: Publish 🚀
+      - name: 🚀 Publish
         if: env.LATEST_PUBLISHED_VERSION != env.PACKAGE_VERSION
         run: npm publish
         env:
