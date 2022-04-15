@@ -9,6 +9,9 @@ function mapDefinitionToContainer(def: ContainerDefinition): GenericContainer {
   if (def.env) {
     Object.entries(def.env).forEach(([key, value]) => container.withEnv(key, value));
   }
+  if (Array.isArray(def.withCommand)) {
+    container.withCmd(def.withCommand);
+  }
 
   const ref = container.start;
   container.start = async function () {

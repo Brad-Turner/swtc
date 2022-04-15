@@ -7,6 +7,7 @@ export interface ContainerDefinition {
   ports: number[];
   name?: string;
   env?: Record<string, string>;
+  withCommand?: string[];
   onStart?: OnStartHook;
 }
 
