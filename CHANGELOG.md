@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Add support for commands supplied to Docker containers
+## 1.2.0
+
+- Add support for commands supplied to Docker containers.
 
 ## 1.1.0
 

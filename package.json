@@ -1,7 +1,7 @@
 {
   "name": "swtc",
-  "version": "1.1.0",
-  "description": "",
+  "version": "1.2.0",
+  "description": "Framework to start supplied Docker containers before running a script",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
