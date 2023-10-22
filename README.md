@@ -1,42 +1,46 @@
-# SWTC
+# SWTC - Start with Testcontainers
 
 [![CI](https://github.com/Brad-Turner/swtc/actions/workflows/ci.yml/badge.svg)](https://github.com/Brad-Turner/swtc/actions/workflows/ci.yml) [![Typescript](https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square)](https://www.typescriptlang.org/)
 
-Built on top of the [testcontainers](https://github.com/testcontainers/testcontainers-node) library, SWTC (`start with testcontainers`) allows you to run a NodeJS process without the need for worring about Docker container setup or teardown.
+A thin wrapper around the [testcontainers](https://github.com/testcontainers/testcontainers-node) library, SWTC lets you easily start and configure a network of Docker services before running a node project.
 
-## Getting Started
-
-### Installation
-
-SWTC is installable through npm
+## Installation
 
 ```bash
-npm i swtc --save-dev
+$ npm install swtc --save-dev
+```
+
+## Configuration
+
+After installing SWTC, you will need to create a `.swtc.ts` file. This is the location where you can define what services are required before starting your NodeJS entrypoint.
+
+```ts
+import { GenericContainer, type SwtcConfig } from 'swtc';
+
+const config: SwtcConfig = {
+  watch: true,
+  entrypoint: './server.ts',
+  containers: [
+    new GenericContainer('mongo').withExposedPorts(27017).onStart((instance) => {
+      process.env.DB_URI = `mongodb://${instance.getHost()}:${instance.getMappedPort(27017)}`;
+    }),
+  ],
+};
+
+export default config;
 ```
 
 ## Usage
 
-SWTC supports local configuration files. This file is named `swtc.ts` and is expected to be in the current working directory. SWTC expects two named exports to be in its configuration file, those are `containers`, and `run`.
+After a `.swtc.ts` file is configured, you can start your node process with the following command:
 
-```ts
-import { ContainerDefinition, StartedTestContainer } from 'swtc';
-
-export const containers: ContainerDefinition[] = [
-  {
-    image: 'mongo',
-    ports: [27017],
-    onStart: (instance: StartedTestContainer) => {
-      process.env.DATABASE_CONNECTION_STRING = `mongodb://${instance.getHost()}:${instance.getMappedPort(27017)}`;
-    }
-  }
-];
-
-export const run = async (): Promise<void> => {
-  // Code to be run while containers are running
-};
+```bash
+npx swtc
 ```
 
-Please refer to the [API Documentation](https://brad-turner.github.io/swtc/) for more detailed infomation.
+## Documentation
+
+Please refer to the [SWTC Documentation](https://brad-turner.github.io/swtc/) for more information about setup and configuration.
 
 ## Contributing
 

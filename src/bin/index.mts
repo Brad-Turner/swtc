@@ -19,13 +19,13 @@ program
   )
   .version(packageJson.version)
   .option('--esm', 'Enables loading ecmascript modules')
-  .option('-p, --project <path>', 'Specifies the path to the swtc entypoint file', 'swtc.ts');
+  .option('-p, --project <path>', 'Specifies the path to the swtc entypoint file', './.swtc.ts');
 // .option('--env-file', 'Specifies the path to an env file to be loaded');
 
 program.parse(process.argv);
 
 const options = program.opts();
-const swtcPath = pathToFileURL(options?.project ?? './swtc.ts');
+const swtcPath = pathToFileURL(options.project);
 const swtcFile = await loadFile(swtcPath);
 
 assert(swtcFile.default && typeof swtcFile.default === 'object');
