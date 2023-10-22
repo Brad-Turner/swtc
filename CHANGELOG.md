@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.0.0
+
+- BREAKING: Removed lifecycle hooks `containers` and `run` from swtc configuration file. This has been replaced by a new configuration object, see the [SWTC Documentation](https://brad-turner.github.io/swtc/) for more information.
+- Upgrade package to using ESM modules by default.
+- Drop support for node 12, 14, and 16. Minimum supported version is now node 18.
+- Changed the default SWTC configuration file location from `swtc.ts` to `.swtc.ts` to move it inline with other similar packages.
+- Moved testcontainers and ts-node to the list of peer dependencies.
+
 ## 1.2.0
 
 - Add support for commands supplied to Docker containers.
