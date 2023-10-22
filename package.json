@@ -40,12 +40,16 @@
     "eslint-config-prettier": "^9.0.0",
     "prettier": "^3.0.3",
     "rimraf": "^5.0.5",
+    "testcontainers": "^10.2.1",
+    "ts-node": "^10.9.1",
     "typedoc": "^0.25.2",
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "commander": "^11.1.0",
-    "testcontainers": "^10.2.1",
+    "commander": "^11.1.0"
+  },
+  "peerDependencies": {
+    "testcontainers": "^10.0.0",
     "ts-node": "^10.9.1"
   }
 }

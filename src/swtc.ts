@@ -1,42 +1,30 @@
-import { GenericContainer } from 'testcontainers';
-import { ContainerDefinition, SwtcSettings, SwtcFile } from './types/index.js';
-import { loadFile, onShutdown } from './util.js';
-import { pathToFileURL } from 'node:url';
+import { spawn } from 'node:child_process';
+import { type SwtcConfig } from './types.js';
+import { onShutdown } from './util.js';
 
-function mapDefinitionToContainer(def: ContainerDefinition): GenericContainer {
-  const container = new GenericContainer(def.image).withExposedPorts(...def.ports);
+export async function startWithTestContainers(config: SwtcConfig): Promise<void> {
+  const containers = config?.containers ?? [];
 
-  if (def.name) container.withName(def.name);
-  if (def.env) container.withEnvironment(def.env);
-  if (Array.isArray(def.withCommand)) container.withCommand(def.withCommand);
+  if (containers.length) {
+    console.info(`Starting ${containers.length} containers...`);
 
-  // const ref = container.start;
-  // container.start = async function () {
-  //   const instance = await ref.apply(this);
+    const instances = await Promise.all(containers.map((container) => container.start()));
 
-  //   if (def.onStart) await def.onStart(instance);
-  //   return instance;
-  // };
+    onShutdown(async (signal = 'SHUTDOWN') => {
+      console.info(`Received ${signal} shutdown event. Stopping containers...`);
+      await Promise.all(instances.map((instance) => instance.stop()));
+    });
 
-  return container;
-}
+    console.info('Containers are started and ready');
+  }
 
-export async function startWithTestContainers(settings: SwtcSettings = {}): Promise<void> {
-  const swtcPath = pathToFileURL(settings.project ?? './swtc.ts');
-  const swtc = await loadFile<SwtcFile>(swtcPath);
+  // start separate node process with watch
+  console.info(config.entrypoint);
 
-  const containers = swtc?.containers.map((def) => mapDefinitionToContainer(def)) ?? [];
+  const childProcessArgs = new Array<string>();
+  // if (config.envFile) childProcessArgs.push(`--env-file=${config.envFile}`);
+  if (config.esm) childProcessArgs.push(`--loader ts-node/esm`);
+  if (config.watch) childProcessArgs.push(`--watch`);
 
-  console.log('Starting containers...');
-
-  const instances = await Promise.all(containers.map((container) => container.start()));
-
-  onShutdown(async (signal = 'SHUTDOWN') => {
-    console.log(`Received ${signal} shutdown event. Stopping containers...`);
-    await Promise.all(instances.map((instance) => instance.stop()));
-  });
-
-  console.log('Containers are started and ready');
-
-  return swtc?.run();
+  spawn('node', [...childProcessArgs, config.entrypoint], { stdio: 'inherit' });
 }
