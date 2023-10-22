@@ -1,18 +1,19 @@
 {
   "name": "swtc",
+  "type": "module",
   "version": "1.2.0",
   "description": "Framework to start supplied Docker containers before running a script",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
-    "swtc": "lib/bin/index.js"
+    "swtc": "dist/bin/index.mjs"
   },
   "files": [
-    "lib"
+    "dist"
   ],
   "scripts": {
     "build": "tsc",
-    "clean": "rimraf lib docs",
+    "clean": "rimraf dist docs",
     "docs": "typedoc"
   },
   "repository": {
@@ -33,19 +34,18 @@
   "homepage": "https://github.com/Brad-Turner/start-with-containers#readme",
   "devDependencies": {
     "@types/node": "^17.0.21",
-    "@typescript-eslint/eslint-plugin": "^5.13.0",
-    "@typescript-eslint/parser": "^5.13.0",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
     "eslint": "^8.10.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.5.1",
-    "rimraf": "^3.0.2",
-    "typedoc": "^0.22.14",
-    "typescript": "^4.5.5"
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.3",
+    "rimraf": "^5.0.5",
+    "typedoc": "^0.25.2",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "commander": "^9.1.0",
-    "testcontainers": "^8.4.0",
-    "ts-node": "^10.7.0"
+    "commander": "^11.1.0",
+    "testcontainers": "^10.2.1",
+    "ts-node": "^10.9.1"
   }
 }

@@ -1,34 +1,31 @@
 import { GenericContainer } from 'testcontainers';
-import { ContainerDefinition, SwtcSettings, SwtcFile } from './types';
-import { loadFile, onShutdown, resolveStringToPath } from './util';
+import { ContainerDefinition, SwtcSettings, SwtcFile } from './types/index.js';
+import { loadFile, onShutdown } from './util.js';
+import { pathToFileURL } from 'node:url';
 
 function mapDefinitionToContainer(def: ContainerDefinition): GenericContainer {
   const container = new GenericContainer(def.image).withExposedPorts(...def.ports);
 
   if (def.name) container.withName(def.name);
-  if (def.env) {
-    Object.entries(def.env).forEach(([key, value]) => container.withEnv(key, value));
-  }
-  if (Array.isArray(def.withCommand)) {
-    container.withCmd(def.withCommand);
-  }
+  if (def.env) container.withEnvironment(def.env);
+  if (Array.isArray(def.withCommand)) container.withCommand(def.withCommand);
 
-  const ref = container.start;
-  container.start = async function () {
-    const instance = await ref.apply(this);
+  // const ref = container.start;
+  // container.start = async function () {
+  //   const instance = await ref.apply(this);
 
-    if (def.onStart) def.onStart(instance);
-    return instance;
-  };
+  //   if (def.onStart) await def.onStart(instance);
+  //   return instance;
+  // };
 
   return container;
 }
 
 export async function startWithTestContainers(settings: SwtcSettings = {}): Promise<void> {
-  const swtcPath = resolveStringToPath(settings.project, 'swtc.ts');
+  const swtcPath = pathToFileURL(settings.project ?? './swtc.ts');
   const swtc = await loadFile<SwtcFile>(swtcPath);
 
-  const containers = swtc?.containers.map(mapDefinitionToContainer) ?? [];
+  const containers = swtc?.containers.map((def) => mapDefinitionToContainer(def)) ?? [];
 
   console.log('Starting containers...');
 

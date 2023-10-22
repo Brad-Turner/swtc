@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
-import { constants, PathLike, promises as fs } from 'fs';
-import { isAbsolute, resolve } from 'path';
+import { constants, promises as fs } from 'fs';
+import { URL } from 'node:url';
 
 export function onShutdown(handle: (signal?: string) => Promise<void> | void) {
   const events = ['beforeExit', 'SIGINT', 'SIGTERM', 'SIGHUP', 'SIGBREAK'];
@@ -9,17 +9,12 @@ export function onShutdown(handle: (signal?: string) => Promise<void> | void) {
   events.forEach((signal) => process.on(signal, (code) => shutdownEmitter.emit('shutdown', code)));
 }
 
-export function resolveStringToPath(path: string | undefined, defaultPath: string): PathLike {
-  if (!path) path = defaultPath;
-
-  return isAbsolute(path) ? path : resolve(process.cwd(), path);
-}
-
-export async function loadFile<T>(path: PathLike): Promise<T | undefined> {
+export async function loadFile<T>(path: URL): Promise<T | undefined> {
   try {
     await fs.access(path, constants.F_OK);
+    const esmPath = path.toString().replace(/\.(c|m)?ts$/, '.$1js');
 
-    const file: T = await import(path.toString());
+    const file: T = await import(esmPath.toString());
 
     // validate here
     return file;

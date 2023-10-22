@@ -1,6 +1,6 @@
 import { StartedTestContainer } from 'testcontainers';
 
-export type OnStartHook = (container: StartedTestContainer) => void;
+export type OnStartHook = (container: StartedTestContainer) => Promise<void>;
 
 export interface ContainerDefinition {
   image: string;
