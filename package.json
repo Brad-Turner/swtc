@@ -32,6 +32,16 @@
     "url": "https://github.com/Brad-Turner/start-with-containers/issues"
   },
   "homepage": "https://github.com/Brad-Turner/start-with-containers#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "commander": "^11.1.0"
+  },
+  "peerDependencies": {
+    "testcontainers": "^10.0.0",
+    "ts-node": "^10.9.1"
+  },
   "devDependencies": {
     "@types/node": "^17.0.21",
     "@typescript-eslint/eslint-plugin": "^6.8.0",
@@ -44,12 +54,5 @@
     "ts-node": "^10.9.1",
     "typedoc": "^0.25.2",
     "typescript": "^5.2.2"
-  },
-  "dependencies": {
-    "commander": "^11.1.0"
-  },
-  "peerDependencies": {
-    "testcontainers": "^10.0.0",
-    "ts-node": "^10.9.1"
   }
 }
