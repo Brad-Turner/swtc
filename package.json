@@ -1,7 +1,7 @@
 {
   "name": "swtc",
   "type": "module",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "A thin wrapper around the testcontainers library, SWTC lets you easily start and configure a network of Docker services before running a node project.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
