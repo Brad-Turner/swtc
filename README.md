@@ -2,7 +2,8 @@
 
 [![NPM Package Version](https://img.shields.io/npm/v/swtc)](https://www.npmjs.com/package/swtc)
 [![CI](https://github.com/Brad-Turner/swtc/actions/workflows/ci.yml/badge.svg)](https://github.com/Brad-Turner/swtc/actions/workflows/ci.yml)
-[![Typescript](https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square)](https://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Brad-Turner/swtc/blob/master/LICENSE.md)
+[![Typescript](https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF)](https://www.typescriptlang.org/)
 
 A thin wrapper around the [testcontainers](https://github.com/testcontainers/testcontainers-node) library, SWTC lets you easily start and configure a network of Docker services before running a node project.
 
