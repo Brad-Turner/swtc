@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.0.1
+
+- Fix malformed node arguments when enabling ESM in SWTC config.
+
 ## 2.0.0
 
 - BREAKING: Removed lifecycle hooks `containers` and `run` from swtc configuration file. This has been replaced by a new configuration object, see the [SWTC Documentation](https://brad-turner.github.io/swtc/) for more information.
