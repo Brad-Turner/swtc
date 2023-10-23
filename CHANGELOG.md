@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Update readme's github badges.
+
 ## 2.0.1
 
 - Fix malformed node arguments when enabling ESM in SWTC config.
