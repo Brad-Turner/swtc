@@ -23,7 +23,7 @@ export async function startWithTestContainers(config: SwtcConfig): Promise<void>
 
   const childProcessArgs = new Array<string>();
   // if (config.envFile) childProcessArgs.push(`--env-file=${config.envFile}`);
-  if (config.esm) childProcessArgs.push(`--loader ts-node/esm`);
+  if (config.esm) childProcessArgs.push(`--loader`, `ts-node/esm`);
   if (config.watch) childProcessArgs.push(`--watch`);
 
   spawn('node', [...childProcessArgs, config.entrypoint], { stdio: 'inherit' });
