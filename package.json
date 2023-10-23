@@ -14,7 +14,11 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist docs",
-    "docs": "typedoc"
+    "docs": "typedoc",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -35,6 +39,10 @@
   "engines": {
     "node": ">=18.0.0"
   },
+  "lint-staged": {
+    "*": "prettier --check",
+    "*.ts": "eslint"
+  },
   "dependencies": {
     "commander": "^11.1.0"
   },
@@ -48,6 +56,8 @@
     "@typescript-eslint/parser": "^6.8.0",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^9.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
     "rimraf": "^5.0.5",
     "testcontainers": "^10.2.1",
